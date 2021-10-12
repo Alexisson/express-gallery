@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Галерея</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <form method="post" enctype="multipart/form-data" action="/upload">
+      <input type="file" name="file" />
+      <input type="submit" value="Submit" />
+    </form>
+    <div id="photos" style="margin: 10px"></div>
+    <script async>
+      (async () => {
+        console.log(window.location.origin);
+        const x = await fetch(`${window.location.origin}/gallery`);
+        const r = await x.json();
+        r.forEach((image) => {
+          let elem = document.createElement("img");
+          elem.setAttribute("src", `upload/${image}`);
+          elem.setAttribute("height", "300");
+          elem.setAttribute("width", "300");
+          document.getElementById("photos").appendChild(elem);
+        });
+      })();
+    </script>
+  </body>
+</html>
